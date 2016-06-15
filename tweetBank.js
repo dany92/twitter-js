@@ -1,8 +1,9 @@
 var _ = require('lodash');
 var data = []; //store tweets
-
+var count = 0;
 function add (name, text) {
-  data.push({ name: name, text: text });
+	count++;
+  data.push({ name: name, text: text, id: "" + count });
 }
 
 function list () {
@@ -37,3 +38,4 @@ for (var i = 0; i < 10; i++) {
 
 module.exports.add('Emily', 'banana');
 console.log(module.exports.find({'text': 'banana'}));
+console.log(module.exports.find({'id': 11}));

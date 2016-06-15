@@ -8,6 +8,31 @@ router.get('/', function (req, res) {
   res.render( 'index', { title: 'Twitter.js', tweets: tweets } );
 });
 
+router.use(express.static('public'));
+
+router.get('/users/:name', function(req, res){
+	var name = req.params.name;
+	var list = tweetBank.find( {name: name} );
+	res.render('index', {title: 'Twitter.js - Posts by ' + name, userName: name, tweets: list } );
+});
+
+//
+router.get('/tweets/:id', function(req, res){
+	var userID = req.params.id;
+
+	/*always check your types (we were passing find a string, when id was stored as a Number. Now id is stored as a string)*/
+	var list = tweetBank.find( {id: userID} );
+	res.render('index', {title: 'This tweet of ID: ' + userID, userName: list[0].name, tweets: list } );
+});
+
+
+
+
+
+
+
+
+
 //An Example of sendFile
 //**************************************** 
 //router.get('/stylesheets/style.css', function(req, res){

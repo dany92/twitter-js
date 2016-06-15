@@ -6,7 +6,7 @@ var app = express();
 var routes = require('./routes/');
 var requestLog = [];
 
-app.use(express.static('public/stylesheets'));
+
 app.use('/', routes);
 
 app.engine('html', swig.renderFile);
