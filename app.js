@@ -1,23 +1,17 @@
 var express = require('express');
+var swig  = require('swig');
 var app = express();
+var routes = require('./routes/');
 var requestLog = [];
 
+app.use(express.static('public/stylesheets'));
+app.use('/', routes);
 
-app.use(function(req, res, next){
-	requestLog.push(req.method+ " "+ req.url);
-	console.log(req.method+ " "+ req.url);
-	res.send('something');
-	console.log(req.method);
-	next();
-});
+app.engine('html', swig.renderFile);
+app.set('view engine', 'html');
+app.set('views', __dirname + '/views');
 
-app.get('/news', function(req, res, next){
-	res.send('This is the news!');
-});
-
-app.get('/', function(req, res, next){
-	res.send('Hello');
-});
+swig.setDefaults({ cache: false });
 
 app.listen(3000, function () {
   console.log('Server listening');
